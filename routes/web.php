@@ -31,12 +31,6 @@ use Illuminate\Support\Facades\Hash;
 
 Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->withoutMiddleware('web')->name('upload');
 
-Route::any('bog/callback/status', [\App\BogPay\BogCallbackController::class, 'status'])->withoutMiddleware('web')->name('bogCallbackStatus');
-Route::any('bog/callback/refund',[\App\BogPay\BogCallbackController::class, 'refund'])->withoutMiddleware('web')->name('bogCallbackRefund');
-
-Route::any('space/callback/status', [\App\SpacePay\SpaceCallbackController::class, 'status'])->withoutMiddleware('web')->name('spaceCallbackStatus');
-
-Route::any('tbc/callback', [\App\TbcPay\TbcCallbackController::class, 'status'])->withoutMiddleware('web')->name('tbcCallbackStatus');
 
 
 
@@ -82,7 +76,7 @@ Route::prefix('{locale?}')
                 Route::post('product/import',[\App\Http\Controllers\Admin\ProductController::class,'import'])->name('product.import');
 //
 
-                Route::post('product/search',[\App\Http\Controllers\Admin\NewsController::class,'getProducts'])->name('product.search.ajax');
+
 
 
                 Route::post('group-search',[\App\Http\Controllers\Admin\ProductController::class,'getGroups'])->name('search.group');
@@ -110,9 +104,7 @@ Route::prefix('{locale?}')
                 Route::resource('setting', SettingController::class);
                 Route::get('setting/{setting}/destroy', [SettingController::class, 'destroy'])->name('setting.destroy');
 
-                Route::get('order/export', [\App\Http\Controllers\Admin\OrderController::class, 'export'])->name('order.export');
-                Route::resource('order', \App\Http\Controllers\Admin\OrderController::class);
-                //Route::get('order/{order}/destroy', [\App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('order.destroy');
+
 
 
                 // Password
@@ -122,51 +114,30 @@ Route::prefix('{locale?}')
                 Route::resource('attribute', \App\Http\Controllers\Admin\AttributeController::class);
                 Route::get('attribute/{attribute}/destroy', [\App\Http\Controllers\Admin\AttributeController::class, 'destroy'])->name('attribute.destroy');
 
-                Route::resource('news', \App\Http\Controllers\Admin\NewsController::class);
-                Route::get('news/{news}/destroy', [\App\Http\Controllers\Admin\NewsController::class, 'destroy'])->name('news.destroy');
 
 
                 Route::resource('project', \App\Http\Controllers\Admin\ProjectController::class);
                 Route::get('project/{project}/destroy', [\App\Http\Controllers\Admin\ProjectController::class, 'destroy'])->name('project.destroy');
 
-                //Partners
-                Route::get('partner', [\App\Http\Controllers\Admin\PartnerController::class,'index'])->name('partner.index');
-                Route::put('partner', [\App\Http\Controllers\Admin\PartnerController::class,'update'])->name('partner.update');
+
 
                 Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
                 Route::get('user/{user}/destroy', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('user.destroy');
 
 
-                Route::resource('city', \App\Http\Controllers\Admin\CityController::class);
-                Route::get('city/{city}/destroy', [\App\Http\Controllers\Admin\CityController::class, 'destroy'])->name('city.destroy');
 
-                Route::resource('stock', \App\Http\Controllers\Admin\StockController::class);
-                Route::get('stock/{stock}/destroy', [\App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
-
-                Route::resource('team', \App\Http\Controllers\Admin\TeamController::class);
-                Route::get('team/{team}/destroy', [\App\Http\Controllers\Admin\TeamController::class, 'destroy'])->name('team.destroy');
 
                 Route::resource('contact', \App\Http\Controllers\Admin\ContactController::class);
                 Route::get('contact/{contact}/destroy', [\App\Http\Controllers\Admin\ContactController::class, 'destroy'])->name('contact.destroy');
 
-                Route::resource('promocode', \App\Http\Controllers\Admin\PromocodeController::class)->parameters(['promocode' => 'promo_code']);
-                Route::get('promocode/{promo_code}/destroy', [\App\Http\Controllers\Admin\PromocodeController::class, 'destroy'])->name('promocode.destroy');
+
 
                 Route::get('mail-templates',[\App\Http\Controllers\Admin\MailTemplateController::class,'index'])->name('mail-template.index');
                 Route::put('mail-templates/update',[\App\Http\Controllers\Admin\MailTemplateController::class,'update'])->name('mail-template.update');
 
-                Route::resource('collection', \App\Http\Controllers\Admin\CollectionController::class)->parameters(['collection' => 'product_set']);
-                Route::get('collection/{product_set}/destroy', [\App\Http\Controllers\Admin\CollectionController::class, 'destroy'])->name('collection.destroy');
-                Route::post('collection/{product_set?}/upload-cropped',[\App\Http\Controllers\Admin\CollectionController::class, 'uploadCropped'])->name('collection.crop-upload');
-                Route::put('collection/coordinates/update',[\App\Http\Controllers\Admin\CollectionController::class,'coordinatesUpdate'])->name('collection.update.coordinates');
-                Route::get('collection/product/{product}/remove',[\App\Http\Controllers\Admin\CollectionController::class,'removeProduct'])->name('collection.destroy.product');
 
-                Route::post('collection/product/search',[\App\Http\Controllers\Admin\CollectionController::class,'getProducts'])->name('collection.product.search.ajax');
-                Route::post('collection/{product_set}/product/add',[\App\Http\Controllers\Admin\CollectionController::class,'addProducts'])->name('product.add-to-set');
 
-                Route::get('order/{order}/tbc-installment/confirm',[\App\Http\Controllers\Admin\OrderController::class,'tbcInstallmentConfirm'])->name('tbc-installment.confirm');
-                Route::get('order/{order}/tbc-installment/cancel',[\App\Http\Controllers\Admin\OrderController::class,'tbcInstallmentCancel'])->name('tbc-installment.cancel');
-                Route::get('order/{order}/tbc-installment/status',[\App\Http\Controllers\Admin\OrderController::class,'tbcInstallmentStatus'])->name('tbc-installment.status');
+
             });
         });
 
@@ -241,16 +212,9 @@ Route::prefix('{locale?}')
         })->middleware('guest')->name('password.update');
 
         Route::middleware(['auth_partner','is_partner'])->group(function (){
-            Route::get('partner/settings',[\App\Http\Controllers\Client\PartnerController::class,'cabinet'])->name('partner.settings');
-            Route::get('partner/bank-account',[\App\Http\Controllers\Client\PartnerController::class,'bankAccount'])->name('partner.bank-account');
-            Route::get('partner/withdraw-funds',[\App\Http\Controllers\Client\PartnerController::class,'withdraw'])->name('partner.withdraw');
-            Route::get('partner/referrals',[\App\Http\Controllers\Client\PartnerController::class,'referrals'])->name('partner.referrals');
-            Route::get('partner/orders',[\App\Http\Controllers\Client\PartnerController::class,'orders'])->name('partner.orders');
-            Route::get('partner/order/{order}/details',[\App\Http\Controllers\Client\PartnerController::class,'orderDetails'])->name('partner.order-details');
-            Route::post('partner/settings',[\App\Http\Controllers\Client\PartnerController::class,'updateInfo'])->name('partner.update-info');
-            Route::post('partner/bak-account',[\App\Http\Controllers\Client\PartnerController::class,'saveBankAccount'])->name('partner.save-bank-account');
-            Route::post('partner/withdraw',[\App\Http\Controllers\Client\PartnerController::class,'withdrawCreate'])->name('partner.withdraw-create');
-            Route::get('partner/{referral}/remove',[\App\Http\Controllers\Client\PartnerController::class,'referralRemove'])->name('partner.referral-remove');
+
+
+
             Route::get('invoice/{order}',[\App\Http\Controllers\Client\UserController::class,'invoice'])->name('client.invoice');
         });
 
@@ -258,31 +222,22 @@ Route::prefix('{locale?}')
             Route::get('account',[\App\Http\Controllers\Client\UserController::class,'index'])->name('client.cabinet');
             Route::get('account/orders',[\App\Http\Controllers\Client\UserController::class,'orders'])->name('client.orders');
             Route::get('account/order/{order}/details',[\App\Http\Controllers\Client\UserController::class,'orderDetails'])->name('client.order-details');
-            Route::get('favorites',[\App\Http\Controllers\Client\FavoriteController::class,'index'])->name('client.favorite.index');
-            Route::post('favorites',[\App\Http\Controllers\Client\FavoriteController::class,'addToWishlist'])->name('client.favorite.add');
-            Route::post('favorites-set',[\App\Http\Controllers\Client\FavoriteController::class,'addToWishlistCollection'])->name('client.favorite.add-set');
-            Route::get('favorites/remove',[\App\Http\Controllers\Client\FavoriteController::class,'removeFromWishlist'])->name('client.favorite.remove');
-            Route::post('apply-promocode',[\App\Http\Controllers\Client\CartController::class,'applyPromocode'])->name('apply-promocode');
 
-            Route::post('checkout',[\App\Http\Controllers\Client\OrderController::class,'order'])->name('client.checkout.order');
+
+
+
+
+
+
             Route::post('settings',[\App\Http\Controllers\Client\UserController::class,'saveSettings'])->name('client.save-settings');
             Route::get('invoice/{order}',[\App\Http\Controllers\Client\UserController::class,'invoice'])->name('client.invoice');
         });
-        Route::post('shipping-submit',[\App\Http\Controllers\Client\ShippingController::class,'submitShipping'])->name('shipping-submit');
 
-        Route::post('add-to-cart',[\App\Http\Controllers\Client\CartController::class,'addToCart'])->name('add-to-cart');
-        Route::post('add-to-cart-collection',[\App\Http\Controllers\Client\CartController::class,'addToCartCollection'])->name('add-to-cart-collection');
-        Route::get('remove_from_cart',[\App\Http\Controllers\Client\CartController::class,'removeFromCart'])->name('remove-from-cart');
-        Route::get('remove_from_cart_collection',[\App\Http\Controllers\Client\CartController::class,'removeFromCartCollection'])->name('remove-from-cart-collection');
-        Route::get('get_cart',[\App\Http\Controllers\Client\CartController::class,'getCart'])->name('get_cart');
-        Route::get('update_cart',[\App\Http\Controllers\Client\CartController::class,'updateCart'])->name('update_cart');
-        Route::get('update_cart_collection',[\App\Http\Controllers\Client\CartController::class,'updateCartCollection'])->name('update_cart_collection');
 
-        Route::get('sipping',[\App\Http\Controllers\Client\ShippingController::class,'index'])->name('client.shipping.index');
 
-        Route::get('payment',[\App\Http\Controllers\Client\PaymentController::class,'index'])->name('client.payment.index');
 
-        Route::any('bog/installment',[\App\Http\Controllers\Client\OrderController::class,'order'])->name('bogInstallment')->middleware('auth_client');
+
+
 
         Route::get('projects', [\App\Http\Controllers\Client\ProjectController::class, 'index'])->name('client.project.index');
         Route::get('project/{project}', [\App\Http\Controllers\Client\ProjectController::class, 'show'])->name('client.project.show');
@@ -302,15 +257,15 @@ Route::prefix('{locale?}')
             // About Page
             Route::get('about', [AboutUsController::class, 'index'])->name('client.about.index');
 
-            Route::get('terms-conditions', [\App\Http\Controllers\Client\TermController::class, 'index'])->name('client.terms');
 
-            Route::get('partner-join', [\App\Http\Controllers\Client\PartnerController::class, 'index'])->name('partner.join');
-            Route::post('partner-join', [\App\Http\Controllers\Client\PartnerController::class, 'store'])->name('partner.store');
 
-            Route::get('news', [\App\Http\Controllers\Client\NewsController::class, 'index'])->name('client.news.index');
-            Route::get('news/{news}', [\App\Http\Controllers\Client\NewsController::class, 'show'])->name('client.news.show');
 
-            Route::get('furniture-set/{slug}',[\App\Http\Controllers\Client\CollectionController::class,'show'])->name('client.collection.show');
+
+
+
+
+
+
 
             // Product Page
             Route::get('products', [\App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product.index');
@@ -324,17 +279,13 @@ Route::prefix('{locale?}')
             Route::get('you-may-like',[\App\Http\Controllers\Client\CategoryController::class,'youMayLike'])->name('client.category.like');
 
             //checkout
-            Route::get('cart',[\App\Http\Controllers\Client\CartController::class,'index'])->name('client.cart.index');
-            Route::get('checkout',[\App\Http\Controllers\Client\OrderController::class,'index'])->name('client.checkout.index');
 
-            Route::get('order/success',[\App\Http\Controllers\Client\OrderController::class,'statusSuccess'])->name('order.success');
-            Route::get('order/failure',[\App\Http\Controllers\Client\OrderController::class,'statusFail'])->name('order.failure');
+
 
             Route::get('search', [\App\Http\Controllers\Client\SearchController::class, 'index'])->name('search.index');
 
-            Route::any('payments/bog/status',[\App\Http\Controllers\Client\OrderController::class, 'bogResponse'])->name('bogResponse');
 
-            Route::any('payments/tbc/status',[\App\Http\Controllers\Client\OrderController::class, 'tbcResponse'])->name('tbcResponse');
+
 
             /*Route::get('test/{method}',function ($locale,$method,\App\Http\Controllers\TestController $testController){
 
