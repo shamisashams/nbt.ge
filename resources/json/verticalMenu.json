@@ -37,37 +37,6 @@
                 }
             ]
         },
-                {
-            "url": "javascript:void(0)",
-            "name": "2. შეკვეთები და მართვა",
-            "i18n": "user",
-            "icon": "brightness_low",
-            "slug": "user",
-            "submenu": [
-                {
-                    "url": "order.index",
-                    "name": "შეკვეთები",
-                    "i18n": "order",
-                    "icon": "g_translate",
-                    "slug": "orders"
-                },
-                {
-                    "url": "user.index",
-                    "name": "მომხმარებელი",
-                    "i18n": "user",
-                    "icon": "user",
-                    "slug": "user"
-                },
-                {
-                    "url": "city.index",
-                    "name": "ქალაქები",
-                    "i18n": "city",
-                    "icon": "city",
-                    "slug": "city"
-                }
-
-            ]
-        },
         {
             "url": "javascript:void(0)",
             "name": "3. ენები",
@@ -113,20 +82,6 @@
                     "icon": "language",
                     "slug": "page"
                 },
-                {
-                    "url": "news.index",
-                    "name": "სიახლები",
-                    "i18n": "blog",
-                    "icon": "g_translate",
-                    "slug": "blog"
-                },
-                {
-                    "url": "partner.index",
-                    "name": "პარტნიორი",
-                    "i18n": "partner",
-                    "icon": "partner",
-                    "slug": "partner"
-                },
                         {
             "url": "setting.index",
             "name": "პარამეტრები",
@@ -140,13 +95,6 @@
             "i18n": "change password",
             "icon": "g_translate",
             "slug": "change_password"
-        },
-        {
-            "url": "mail-template.index",
-            "name": "ფოსტის პარამეტრები",
-            "i18n": "mail",
-            "icon": "mail",
-            "slug": "mail"
         }
             ]
         }
