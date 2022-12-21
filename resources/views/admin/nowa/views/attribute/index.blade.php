@@ -115,7 +115,7 @@
                                                     //'corner',
                                                     'size',
                                                     'color',
-                                                    //'material',
+                                                    'material',
                                                     'brand'
                                                 ];
                                                 ?>
