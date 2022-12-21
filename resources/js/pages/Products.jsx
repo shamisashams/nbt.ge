@@ -154,7 +154,7 @@ const Products = ({seo}) => {
           <div className="wrapper md:pt-52 pt-32 pb-20">
               <div className="lg:flex hidden items-start justify-start ">
                   <div className="bold">
-                      გაფილტრე ბრენდის მიხედვით
+                      {__('client.filter_by_brands',localizations)}
                       <BsArrowRightCircle className="text-2xl mb-1 ml-2" />
                   </div>
                   <div className="flex justify-start flex-wrap ml-10">

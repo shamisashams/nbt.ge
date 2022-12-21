@@ -34,14 +34,7 @@
                     "i18n": "project",
                     "icon": "g_translate",
                     "slug": "project"
-                },
-        {
-            "url": "promocode.index",
-            "name": "პრომოკოდი",
-            "i18n": "promocode",
-            "icon": "promocode",
-            "slug": "promocode"
-        }
+                }
             ]
         },
                 {

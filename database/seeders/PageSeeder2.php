@@ -18,7 +18,7 @@ class PageSeeder2 extends Seeder
         // Pages array
         $pages = [
             [
-                'key' => 'term_condition'
+                'key' => 'projects'
             ],
 
         ];

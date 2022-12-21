@@ -8,7 +8,7 @@ import ProductSlider from "../components/ProductSlider";
 import Layout from "@/Layouts/Layout";
 
 const SingleProduct = ({seo}) => {
-    const {product,category_path,product_images,similar_products} = usePage().props;
+    const {product,category_path,product_images,similar_products,localizations} = usePage().props;
     console.log(product, category_path);
 
     const renderHTML = (rawHTML) =>
@@ -21,7 +21,7 @@ const SingleProduct = ({seo}) => {
           <div className="wrapper md:pt-44 pt-32">
               <Link className="bold inline-block" href={route('client.product.index')}>
                   <BsArrowLeftCircle className="text-2xl mb-1 mr-2" />
-                  უკან
+                  {__('client.back',localizations)}
               </Link>
               <section className="flex items-stretch justify-start mt-5 flex-col lg:flex-row">
                   <div className="xl:w-1/3  h-full xl:mr-20 lg:mr-10 max-h-[30rem] overflow-hidden mb-10">
@@ -46,11 +46,11 @@ const SingleProduct = ({seo}) => {
                   </div>
               </section>
               <section className="my-5">
-                  <div className="opacity-80 text-lg -mb-6">გალერეა</div>
+                  <div className="opacity-80 text-lg -mb-6">{__('client.gallery',localizations)}</div>
                   <GallerySlider images={product_images} />
               </section>
               <section className="my-16 mb-20">
-                  <div className="opacity-80 text-lg mb-5">მსგავსი პროდუქცია</div>
+                  <div className="opacity-80 text-lg mb-5">{__('client.similar_products',localizations)}</div>
                   <ProductSlider products={similar_products} />
               </section>
           </div>

@@ -260,7 +260,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
 
 
                     <div>
-                        <h6 class="card-title mb-1">@lang('admin.products')</h6>
+                        <h6 class="card-title mb-1">@lang('admin.projects')</h6>
                     </div>
                     <?php
                     $ids = $product->projects->pluck("id")->toArray();
@@ -317,7 +317,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                     </div>--}}
 
 
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label class="form-label">@lang('admin.group')</label>
                         <ul id="selected_products">
 
@@ -329,7 +329,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                                         <a href="javascript:;" class="delete_product">delete</a>
                                     </li>
                                 @else
-                                    {{--<input type="hidden" name="attribute[{{$item->id}}]" value="">--}}
+                                    --}}{{--<input type="hidden" name="attribute[{{$item->id}}]" value="">--}}{{--
                                 @endif
 
                         </ul>
@@ -338,11 +338,11 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
 
                         </ul>
                     </div>
-
+--}}
 
 
                     {{--@if($product->created_at and $product->parent_id !== null)--}}
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         {!! Form::label('price',__('admin.price'),['class' => 'form-label']) !!}
                         {!! Form::number('price',$product->price ?? old('price'),['class' => 'form-control','step' => '0.01','min' => '0']) !!}
 
@@ -353,11 +353,11 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                             </div>
                         </small>
                         @enderror
-                    </div>
+                    </div>--}}
                     {{--@endif--}}
 
                     {{--@if($product->created_at and $product->parent_id !== null)--}}
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         {!! Form::label('special_price',__('admin.special_price'),['class' => 'form-label']) !!}
                         {!! Form::number('special_price',$product->special_price ?? old('special_price'),['class' => 'form-control','step' => '0.01','min' => '0']) !!}
 
@@ -368,10 +368,10 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                             </div>
                         </small>
                         @enderror
-                    </div>
+                    </div>--}}
                   {{--  @endif--}}
 
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label class="form-label">@lang('admin.installment_price')</label>
                         <input type="number" class="form-control" name="installment_price" value="{{$product->installment_price ?? old('installment_price')}}">
 
@@ -382,9 +382,9 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                             </div>
                         </small>
                         @enderror
-                    </div>
+                    </div>--}}
 
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         {!! Form::label('code',__('admin.quantity'),['class' => 'form-label']) !!}
                         {!! Form::number('quantity',$product->quantity,['class' => 'form-control','min' => '0']) !!}
 
@@ -395,7 +395,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                             </div>
                         </small>
                         @enderror
-                    </div>
+                    </div>--}}
 
                     {{--<div class="form-group">
                         <label class="form-label">@lang('admin.size')</label>
@@ -434,7 +434,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                         @enderror
                     </div>--}}
 
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label class="form-label">@lang('admin.video')</label>
                         <textarea name="video" class="form-control">{{$product->video ? $product->video->path : old('video')}}</textarea>
                         @error('video')
@@ -444,7 +444,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                             </div>
                         </small>
                         @enderror
-                    </div>
+                    </div>--}}
 
                     {{--<div class="form-group">
                         <label class="form-label">@lang('admin.promocode')</label>
@@ -497,7 +497,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                         </label>
                     </div>
 
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label class="ckbox">
                             <input type="checkbox" name="popular"
                                    value="true" {{$product->popular ? 'checked' : (old('popular') ? 'checked' : '')}}>
@@ -511,7 +511,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                                    value="true" {{$product->new ? 'checked' : (old('new') ? 'checked' : '')}}>
                             <span>{{__('admin.new_product')}}</span>
                         </label>
-                    </div>
+                    </div>--}}
 
                     {{--<div class="form-group">
                         <label class="ckbox">
@@ -545,13 +545,13 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                         </label>
                     </div>--}}
 
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label class="ckbox">
                             <input type="checkbox" name="special_price_tag"
                                    value="true" {{$product->special_price_tag ? 'checked' : (old('special_price_tag') ? 'checked' : '')}}>
                             <span>{{__('admin.special_price_tag')}}</span>
                         </label>
-                    </div>
+                    </div>--}}
 
                     {{--<div class="form-group">
 
@@ -645,7 +645,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$ids,$disabled
                                                     } else $selected = '';
                                                 } else $selected = '';
                                             ?>
-                                            <option value="{{$option->id}}"{{$selected}}>{{$option->code}} {{$option->label}} {{$option->value}}</option>
+                                            <option value="{{$option->id}}"{{$selected}}>{{$option->code}} {{$option->label}} {{$option->value}} {{$option->color}}</option>
                                         @endforeach
                                     </select>
                                 @else

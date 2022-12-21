@@ -207,7 +207,7 @@ class BaseRepository implements EloquentRepositoryInterface
                 $image = new ImageResize($file);
                 $image->resizeToHeight($height);
 
-                $image->crop($width, $height, false, ImageResize::CROPCENTER);
+                //$image->crop($width, $height, false, ImageResize::CROPCENTER);
                 //$image->save(date('Ymhs') . $file->getClientOriginalName());
                 $img = $image->getImageAsString();
 
@@ -256,7 +256,7 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
 
-    public function uploadCropped($request, $id){
+    public function uploadCropped($request, $id, $height = 800, $width = 800){
         //dd($product);
         $this->model = $this->findOrFail($id);
         $data = explode(',', $request->post('base64_img'));
@@ -274,7 +274,19 @@ class BaseRepository implements EloquentRepositoryInterface
             $imagename = date('Ymdhis') .'crop.png';
             $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id;
 
+            $image =  ImageResize::createFromString($data);
+            $image->resizeToHeight($height);
+
+            //$image->crop($width, $height, false, ImageResize::CROPCENTER);
+            //$image->save(date('Ymhs') . $file->getClientOriginalName());
+            $img = $image->getImageAsString();
+
+            $thumb = 'public/' . $modelName . '/' . $this->model->id .'/thumb/'.$imagename;
+
             Storage::put('public/' . $modelName . '/' . $this->model->id . '/' . $imagename,$data);
+
+            Storage::put($thumb,$img);
+
             $this->model->files()->create([
                 'title' => $imagename,
                 'path' => 'storage/' . $modelName . '/' . $this->model->id,

@@ -20,12 +20,12 @@ class AboutUsController extends Controller
 
     public function index()
     {
-        $page = Page::where('key', 'about')->firstOrFail();
+        $page = Page::with(['sections.file'])->where('key', 'about')->firstOrFail();
 
         $images = [];
         foreach ($page->sections as $sections){
             if($sections->file){
-                $images[] = asset($sections->file->getFileUrlAttribute());
+                $images[] = $sections->file->thumb_full_url;
             } else {
                 $images[] = null;
             }

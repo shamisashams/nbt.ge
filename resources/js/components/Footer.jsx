@@ -105,13 +105,13 @@ const Footer = () => {
             </a>
           </div>
           <div className="text-2xl">
-            <a href="#" className="lg:ml-5 lg:mr-0 mr-5">
+            <a href={info.facebook} className="lg:ml-5 lg:mr-0 mr-5">
               <FaFacebookSquare />
             </a>
-            <a href="#" className="lg:ml-5 lg:mr-0 mr-5">
+            <a href={info.instagram} className="lg:ml-5 lg:mr-0 mr-5">
               <FaInstagram />
             </a>
-            <a href="#" className="lg:ml-5 lg:mr-0 mr-5">
+            <a href={info.twitter} className="lg:ml-5 lg:mr-0 mr-5">
               <FaTwitterSquare />
             </a>
           </div>

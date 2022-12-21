@@ -19,7 +19,7 @@ const Home = ({seo}) => {
     const [subCats, setSubCats] = useState([]);
     const [subCatTitle, setSubCatTitle] = useState('');
 
-  const {categories,products,localizations} = usePage().props;
+  const {categories,products,localizations,images} = usePage().props;
 
   console.log(products);
 
@@ -76,6 +76,11 @@ const Home = ({seo}) => {
         });
     }
 
+    const renderHTML = (rawHTML) =>
+        React.createElement("div", {
+            dangerouslySetInnerHTML: { __html: rawHTML },
+        });
+
   return (
       <Layout seo={seo}>
           <>
@@ -84,10 +89,10 @@ const Home = ({seo}) => {
                   <Link
                       href={route('client.product.index')}
                       className="w-full text-center sm:pt-24 pt-12 sm:pb-12 pb-6 block bg-cover bg-center"
-                      style={{ backgroundImage: `url("/client/assets/images/home/2.png")` }}
+                      style={{ backgroundImage: `url("${images[0]}")` }}
                   >
-                      <div className="sm:text-4xl text-2xl bold ">ფერთა კატალოგი</div>
-                      <div className="bold underline my-3">ყველა ფერი</div>
+                      <div className="sm:text-4xl text-2xl bold ">{__('client.color_catalog',localizations)}</div>
+                      <div className="bold underline my-3">{__('client.all_colors',localizations)}</div>
                       <BsArrowRightCircle className="text-2xl" />
                   </Link>
                   <div className="grid my-5 sm:gap-5 gap-3 lg:grid-cols-4  grid-cols-2">
@@ -241,7 +246,7 @@ const Home = ({seo}) => {
                   {" "}
                   <img
                       className="absolute lg:w-1/2 w-full lg:h-full h-36 object-cover bottom-0 right-0 -z-10 opacity-70"
-                      src="/client/assets/images/home/3.png"
+                      src={images[1]}
                       alt=""
                   />
                   <div className="wrapper lg:py-12 py-6 lg:pt-20 flex items-center justify-between flex-col lg:flex-row">
@@ -251,24 +256,24 @@ const Home = ({seo}) => {
                               href={route('client.about.index')}
                               className="bg-zinc-900 text-white rounded-full py-3 px-8 text-sm block w-fit lg:mt-5 mt-2"
                           >
-                              გაიგე მეტი ჩვენზე <BsArrowRightCircle className="text-2xl ml-2" />
+                              {__('client.learn_more_about',localizations)} <BsArrowRightCircle className="text-2xl ml-2" />
                           </Link>
                       </div>
                       <div className="lg:w-1/2  flex justify-center items-end whitespace-wrap">
                           <div className="text-sm bold ">
-                              გამოცდილება <br /> წლებში
+                              {renderHTML(__('client.experience_years',localizations).newLineToBr())}
                               <br />
-                              <span className="md:text-5xl text-3xl">13+</span>
+                              <span className="md:text-5xl text-3xl">{__('client.experience_years_value',localizations)}</span>
                           </div>
                           <div className="text-sm bold md:mx-16 mx-5">
-                              დასახელების <br /> პროდუქტი
+                              {renderHTML(__('client.naming_product',localizations).newLineToBr())}
                               <br />
-                              <span className="md:text-5xl text-3xl">1200</span>
+                              <span className="md:text-5xl text-3xl">{__('client.naming_product_value',localizations)}</span>
                           </div>
                           <div className="text-sm bold ">
-                              წარმატებული <br /> პროექტი
+                              {renderHTML(__('client.successful_projects',localizations).newLineToBr())}
                               <br />
-                              <span className="md:text-5xl text-3xl">150+</span>
+                              <span className="md:text-5xl text-3xl">{__('client.successful_projects_value',localizations)}</span>
                           </div>
                       </div>
                   </div>

@@ -160,7 +160,7 @@
                                             @endif
 
                                             @if($attribute->code == 'color')
-                                            <th>@lang('admin.color')</th>
+                                            <th>@lang('admin.color_code')</th>
                                             @endif
 
                                             @if($attribute->code == 'size')
@@ -199,7 +199,7 @@
                                             @endif
                                             @if($attribute->code == 'color')
                                             <td>
-                                                <input class="form-control" name="options[{{$item->id}}][color]" value="{{$item->color}}" data-jscolor="{}">
+                                                <input class="form-control" name="options[{{$item->id}}][color]" value="{{$item->color}}" >
                                             </td>
                                             @endif
                                             @if($attribute->code == 'brand')

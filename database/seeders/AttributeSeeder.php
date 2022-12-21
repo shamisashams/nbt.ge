@@ -30,6 +30,10 @@ class AttributeSeeder extends Seeder
             [
                 'code' => 'brand',
                 'type' => 'select'
+            ],
+            [
+                'code' => 'material',
+                'type' => 'select'
             ]
         ];
 

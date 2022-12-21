@@ -14,8 +14,8 @@ import { Inertia } from "@inertiajs/inertia";
 const Contact = ({seo}) => {
   const [showPopup, setShowPopup] = useState(false);
 
-    const { info, errors } = usePage().props;
-    let {msg_status} = usePage().props
+    const { info, errors, localizations, page } = usePage().props;
+    let {msg_status,images} = usePage().props
 
     const [values, setValues] = useState({
         name: "",
@@ -43,6 +43,10 @@ const Contact = ({seo}) => {
         if(msg_status)setShowPopup(true);
         msg_status = null;
     })
+    const renderHTML = (rawHTML) =>
+        React.createElement("div", {
+            dangerouslySetInnerHTML: { __html: rawHTML },
+        });
 
     return (
       <Layout seo={seo}>
@@ -50,28 +54,29 @@ const Contact = ({seo}) => {
               <div className="wrapper flex items-stretch justify-between  md:pt-44 pt-32 pb-20 flex-col-reverse lg:flex-row">
                   <div className="lg:w-1/3 mb-10">
                       {" "}
-                      <div className="md:text-4xl text-2xl bold mb-6">მოგვწერეთ</div>
-                      <p>ჩვენ მზად ვართ გიპასუხოთ</p>
+                      <div className="md:text-4xl text-2xl bold mb-6">{page.title}</div>
+                      {/*<p>ჩვენ მზად ვართ გიპასუხოთ</p>*/}
+                      {renderHTML(page.description)}
                       <div className="mt-10">
                           {/* <form action=""> */}
                           <div className="grid grid-cols-2 gap-6">
                               <div>
-                                  <label>სახელი</label> <input name="name" type="text" placeholder="სახელი" onChange={handleChange} />
+                                  <label>{__('client.form_name',localizations)}</label> <input name="name" type="text" placeholder={__('client.form_name',localizations)} onChange={handleChange} />
                                   {errors.name && <div>{errors.name}</div>}
                               </div>
                               <div>
-                                  <label>გვარი</label>
-                                  <input name="surname" type="text" placeholder="გვარი" onChange={handleChange} />
+                                  <label>{__('client.form_surname',localizations)}</label>
+                                  <input name="surname" type="text" placeholder={__('client.form_surname',localizations)} onChange={handleChange} />
                                   {errors.surname && <div>{errors.surname}</div>}
                               </div>
                           </div>
-                          <label>ელ. ფოსტა</label>
+                          <label>{__('client.form_email',localizations)}</label>
                           <input name="email" type="text" placeholder="name@mail.com" onChange={handleChange} />
                           {errors.email && <div>{errors.email}</div>}
-                          <label>ტელეფონი</label>
+                          <label>{__('client.form_phone',localizations)}</label>
                           <input name="phone" type="text" placeholder="+995 000 000 000" onChange={handleChange} />
                           {errors.phone && <div>{errors.phone}</div>}
-                          <label>შეტყობინება</label>
+                          <label>{__('client.form_message',localizations)}</label>
                           <textarea name="message" onChange={handleChange}></textarea>
                           {errors.message && <div>{errors.message}</div>}
                           <button
@@ -81,7 +86,7 @@ const Contact = ({seo}) => {
                               }}
                               className="w-full h-14 bold bg-zinc-900 text-white rounded-full"
                           >
-                              გაგზავნა
+                              {__('client.form_send',localizations)}
                           </button>{" "}
                           {/* </form> */}
                       </div>
@@ -101,7 +106,7 @@ const Contact = ({seo}) => {
                       <div>
                           <div className="flex items-center justify-start text-xl bold mb-8">
                               <BiDownArrowAlt className="text-4xl mb-2 -rotate-45" />
-                              <span>კონტაქტი</span>
+                              <span>{__('client.nav_contact',localizations)}</span>
                           </div>
                           <a href="#" className="mb-5 block w-fit bg-zinc-100 p-2 px-3">
                               <MdLocationOn className="inline-block text-lg mr-2" />
@@ -120,7 +125,7 @@ const Contact = ({seo}) => {
                           </a>
                       </div>
                       <div className="w-auto h-full">
-                          <img className="w-full h-full object-cover" src="/client/assets/images/tiles/17.png" alt="" />
+                          <img className="w-full h-full object-cover" src={images[0]} alt="" />
                       </div>
                   </div>
               </div>

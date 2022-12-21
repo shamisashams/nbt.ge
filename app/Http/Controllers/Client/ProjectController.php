@@ -20,7 +20,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $page = Page::where('key', 'about')->firstOrFail();
+        $page = Page::where('key', 'projects')->firstOrFail();
 
         $images = [];
         foreach ($page->sections as $sections){
@@ -120,7 +120,7 @@ class ProjectController extends Controller
     }
 
     public function getAllProjects(\Illuminate\Http\Request $request, $locale,$type = null){
-        $query = Project::with(['translation','latestImage','products.attribute_values.attribute.translation','products.attribute_values.option.translation','products.categories.translation']);
+        $query = Project::with(['translation','latestImage','products.translation','products.attribute_values.attribute.translation','products.attribute_values.option.translation','products.categories.translation']);
         if($type == 'commercial') {
             $query->where('is_commercial',1);
         }

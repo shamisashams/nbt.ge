@@ -246,7 +246,7 @@
                         <h6 class="card-title mb-1">@lang('admin.sections')</h6>
                     </div>
                     @foreach($page->sections as $item)
-                        @if($page->key == 'home')
+                        {{--@if($page->key == 'home')
                             <div class="form-group">
                                 <label class="form-label">@lang('admin.link')</label>
                                 <input class="form-control" type="text" name="section[{{$item->id}}][link]" value="{{$item->link}}">
@@ -327,7 +327,7 @@
 
                             </div>
 
-                        @endif
+                        @endif--}}
                         <div class="form-group">
 
                             <input type="file" class="dropify" name="image[{{$item->id}}]" data-default-file="{{($item->file) ? asset($item->file->getFileUrlAttribute()) : ''}}" data-height="200"  />

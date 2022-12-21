@@ -41,15 +41,15 @@ export const ProjectBox = (props) => {
             </div>
             <div className="text-sm opacity-50 mb-8">{__('client.project_details',localizations)}</div>
             <div className="flex justify-between items-center pb-2 mb-5 border-b">
-              <div>გამოყენებული მასალები:</div>
+              <div>{__('client.project_materials',localizations)}</div>
               <div>{props.material}</div>
             </div>
             <div className="flex justify-between items-center pb-2 mb-5 border-b">
-              <div>მწარმოებელი:</div>
+              <div>{__('client.project_brand',localizations)}</div>
               <div>{props.producer}</div>
             </div>
             <div className="flex justify-between items-center pb-2 mb-5 border-b">
-              <div>დამკვეთი:</div>
+              <div>{__('client.project_customer',localizations)}</div>
               <div>{props.customer}</div>
             </div>
             <div className="text-sm opacity-50 mb-8 mt-10">

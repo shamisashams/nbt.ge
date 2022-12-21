@@ -23,13 +23,13 @@ class HomeController extends Controller
     {
 
 
-        $page = Page::with(['sections.translation'])->where('key', 'home')->firstOrFail();
+        $page = Page::with(['sections.translation','sections.file'])->where('key', 'home')->firstOrFail();
 
         $images = [];
         $sections = [];
         foreach ($page->sections as $section){
             if($section->file){
-                $images[] = asset($section->file->getFileUrlAttribute());
+                $images[] = $section->file->thumb_full_url;
             } else {
                 $images[] = null;
             }
@@ -104,7 +104,7 @@ class HomeController extends Controller
             $colorIds[] = $option->id;
         }
 
-        $attribute_values = ProductAttributeValue::with(['product.translation','product.latestImage','option.translation'])->where('attribute_id',$attribute->id)
+        $attribute_values = ProductAttributeValue::with(['product.translation','product.translation','product.latestImage','option.translation'])->where('attribute_id',$attribute->id)
             ->whereIn('integer_value',$colorIds)
             ->groupBy('integer_value')
             ->paginate(8);

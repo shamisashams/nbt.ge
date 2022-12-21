@@ -11,7 +11,7 @@ import { FaFacebookSquare, FaInstagram, FaTwitterSquare } from "react-icons/fa";
 import { Link, usePage } from '@inertiajs/inertia-react'
 
 const Hero = () => {
-    const { sliders } = usePage().props;
+    const { sliders, localizations, info } = usePage().props;
   const [cIndex, setCIndex] = useState(0);
   const tabs = [
     {
@@ -70,17 +70,16 @@ const Hero = () => {
       <div className="wrapper h-full flex md:items-center items-end justify-between relative">
         <div>
           <div className="bold hidden md:block">
-            <BsArrowDownCircle className="text-2xl mb-1 mr-2" /> სოციალური
-            ქსელები
+            <BsArrowDownCircle className="text-2xl mb-1 mr-2" /> {__('client.socials',localizations)}
           </div>
           <div className=" hidden md:block h-60 bg-white w-px my-8 ml-3 opacity-70"></div>
-          <a href="#" className="block text-2xl mb-1">
+          <a href={info.facebook} className="block text-2xl mb-1">
             <FaFacebookSquare />
           </a>
-          <a href="#" className="block text-2xl mb-1">
+          <a href={info.instagram} className="block text-2xl mb-1">
             <FaInstagram />
           </a>
-          <a href="#" className="block text-2xl">
+          <a href={info.twitter} className="block text-2xl">
             <FaTwitterSquare />
           </a>
         </div>
@@ -104,7 +103,7 @@ const Hero = () => {
                 href={item.link}
                 className="inline-block bold border border-white rounded-full py-4 px-14"
               >
-                გაიგე მეტი
+                  {__('client.learn_more',localizations)}
               </Link>
             </div>
           );

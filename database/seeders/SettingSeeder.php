@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Setting;
+use App\Models\Translations\SettingTranslation;
 use Illuminate\Database\Seeder;
 
 class SettingSeeder extends Seeder
@@ -14,7 +15,7 @@ class SettingSeeder extends Seeder
      */
     public function run()
     {
-        //Settings array
+
         $Settings = [
             [
                 'key' => 'phone'
@@ -30,6 +31,9 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'instagram'
+            ],
+            [
+                'key' => 'twitter'
             ]
         ];
 

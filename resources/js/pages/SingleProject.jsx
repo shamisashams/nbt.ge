@@ -15,7 +15,7 @@ import Layout from "@/Layouts/Layout";
 
 const SingleProject = ({seo}) => {
 
-    const {project,products,categories_object} = usePage().props;
+    const {project,products,categories_object, localizations} = usePage().props;
     console.log(products)
 
   const data1 = [
@@ -58,9 +58,9 @@ const SingleProject = ({seo}) => {
       <Layout seo={seo}>
           <div className="wrapper md:pt-52 pt-32 pb-20 flex justify-between items-start flex-col lg:flex-row">
               <div className="lg:w-1/2 lg:mr-10">
-                  <Link className="bold inline-block" href={route('client.product.index')}>
+                  <Link className="bold inline-block" href={route('client.project.index')}>
                       <BsArrowLeftCircle className="text-2xl mb-1 mr-2" />
-                      პროექტები
+                      {__('client.nav_projects',localizations)}
                   </Link>
                   <div className="md:text-4xl text-2xl bold mt-3 mb-10">
                       {project.title}
@@ -77,7 +77,7 @@ const SingleProject = ({seo}) => {
                   </p>*/}
                   {renderHTML(project.description)}
                   <div className="opacity-50 text-sm mt-10 mb-4">
-                      გამოყენებული მასალები:
+                      {__('client.used_materials',localizations)}
                   </div>
                   {Object.keys(products).map((key,index)=>{
                       return (<>
@@ -95,7 +95,7 @@ const SingleProject = ({seo}) => {
                                           </div>
                                           <div>{item.title}</div>
                                           <div className="flex justify-between mt-2 text-xs">
-                                              <div className="">მწარმოებელი:</div>
+                                              <div className="">{__('client.brand',localizations)}</div>
                                               <div className="uppercase bold">{item.attributes.brand}</div>
                                           </div>
                                       </Link>

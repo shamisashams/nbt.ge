@@ -69,10 +69,18 @@ class CategoryController extends Controller
                 }*/
 
                 if($item->attribute->type == 'select'){
+                    if($item->attribute->code == 'size'){
 
-                    $_result[$item->attribute->code] = $item->attribute->code == 'size' ? $item->option->value : $item->option->label;
+                        $_result[$item->attribute->code] = $item->option->value;
+                    }
+                    elseif($item->attribute->code == 'color') {
+                        $_result[$item->attribute->code] = $item->option->label . ' ' . $item->option->color;
 
+                    }
+                    else {
+                        $_result[$item->attribute->code] = $item->option->label;
 
+                    }
                 }
             }
 

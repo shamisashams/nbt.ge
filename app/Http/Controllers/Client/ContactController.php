@@ -16,12 +16,12 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $page = Page::where('key', 'contact')->firstOrFail();
+        $page = Page::with(['sections.file'])->where('key', 'contact')->firstOrFail();
 
         $images = [];
         foreach ($page->sections as $sections){
             if($sections->file){
-                $images[] = asset($sections->file->getFileUrlAttribute());
+                $images[] = $sections->file->thumb_full_url;
             } else {
                 $images[] = null;
             }
