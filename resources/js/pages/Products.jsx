@@ -197,7 +197,7 @@ const Products = ({seo}) => {
                       className="text-xl bold mb-5 block lg:hidden"
                   >
                       <HiOutlineAdjustmentsVertical className="text-4xl" />
-                      Filter
+                      {__('client.filter',localizations)}
                   </button>
                   <div className="shrink-0 mr-10 lg:inline-block hidden">
                       <Link
@@ -277,26 +277,45 @@ const Products = ({seo}) => {
                           })}
                       </div>
                       <div className="mt-6">
-                          {materials.map((item, index) => {
+                          <Link
+                              href={route('client.product.index')}
+                              key={0}
+                              className={`relative block w-full group hover:bg-zinc-100 mb-2 py-3 px-5 text-left transition-all ${
+                                  activeMaterial === 0 && "bg-zinc-100"
+                              }`}
+                          >
+                              <div
+                                  className={`block  absolute top-0 right-full w-full h-full bg-zinc-100 opacity-0 group-hover:opacity-100 transition-all text-right ${
+                                      activeMaterial === 0 && "!opacity-100"
+                                  }`}
+                              >
+                                  <BiDownArrowAlt
+                                      className={"text-3xl -rotate-45 mt-1 -mr-5"}
+                                  />
+                              </div>
+                              {__('client.all_products',localizations)} ({product_quantity})
+                          </Link>
+                          {categories.map((item, index) => {
+                              index++;
                               return (
-                                  <button
-                                      onClick={() => setActiveMaterial(index)}
+                                  <Link
+                                      href={route('client.category.show',item.slug)}
                                       key={index}
                                       className={`relative block w-full group hover:bg-zinc-100 mb-2 py-3 px-5 text-left transition-all ${
-                                          activeMaterial === index && "bg-zinc-100"
+                                          activeMaterial === item.id && "bg-zinc-100"
                                       }`}
                                   >
                                       <div
                                           className={`block  absolute top-0 right-full w-full h-full bg-zinc-100 opacity-0 group-hover:opacity-100 transition-all text-right ${
-                                              activeMaterial === index && "!opacity-100"
+                                              activeMaterial === item.id && "!opacity-100"
                                           }`}
                                       >
                                           <BiDownArrowAlt
                                               className={"text-3xl -rotate-45 mt-1 -mr-5"}
                                           />
                                       </div>
-                                      {item.name} ({item.quantity})
-                                  </button>
+                                      {item.title} ({product_category[item.id]})
+                                  </Link>
                               );
                           })}
                       </div>
@@ -305,7 +324,7 @@ const Products = ({seo}) => {
                           className="text-red-500 block mx-auto mr-0 bold my-5"
                       >
                           {" "}
-                          Close
+                          {__('client.close',localizations)}
                       </button>
                   </div>
               </div>{" "}
