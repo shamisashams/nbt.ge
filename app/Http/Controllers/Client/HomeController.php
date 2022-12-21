@@ -38,7 +38,7 @@ class HomeController extends Controller
 
         //dd($sections);
 
-        $sliders = Slider::query()->where("status", 1)->with(['file', 'translations','desktop','mobile'])->get();
+        $sliders = Slider::query()->where("status", 1)->with(['file', 'translations','logo'])->get();
 //        dd($page->file);
         //dd($sliders);
         //$_products = app(ProductRepository::class)->getHomePageProducts();

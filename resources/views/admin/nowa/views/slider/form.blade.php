@@ -193,8 +193,8 @@
 
                                     <div style="position: absolute;z-index: 10;background-color: #fff">
                                         <input type="hidden" name="old_images[]"  value="{{$item->id}}">
-                                        <label class="rdiobox"><input name="main" value="{{$item->id}}" name="rdio" type="radio" {{$item->main ? 'checked':''}}> <span>Desctop</span></label>
-                                        <label class="rdiobox"><input name="span" value="{{$item->id}}" name="rdio" type="radio" {{$item->span ? 'checked':''}}> <span>Mobile</span></label>
+                                        {{--<label class="rdiobox"><input name="main" value="{{$item->id}}" name="rdio" type="radio" {{$item->main ? 'checked':''}}> <span>Slide</span></label>--}}
+                                        <label class="rdiobox"><input name="span" value="{{$item->id}}" name="rdio" type="radio" {{$item->span ? 'checked':''}}> <span>Logo</span></label>
                                         <button type="button" class="btn" data-rm_img="{{$item->id}}">remove</button>
                                     </div>
                                 </div>

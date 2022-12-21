@@ -91,7 +91,7 @@ const Hero = () => {
                 index === cIndex ? "show" : ""
               }`}
             >
-              <img src={item.logo} alt="" />
+              <img src={item.logo?item.logo.thumb_full_url:null} alt="" />
               <div className="xl:text-7xl md:text-5xl text-4xl bold xl:mt-10 mt-5">
                 <BsArrowDownRightCircle className="md:text-6xl text-4xl mr-4 mb-3" />
                 {item.title}
