@@ -13,13 +13,14 @@ import Layout from "@/Layouts/Layout";
 import axios from "axios";
 
 const Home = ({seo}) => {
-  const [projectTab, setProjectTab] = useState(0);
+    const {categories,products,localizations,images} = usePage().props;
+  const [projectTab, setProjectTab] = useState(categories[0].id);
   const [soundProof, setSoundProof] = useState(false);
 
     const [subCats, setSubCats] = useState([]);
     const [subCatTitle, setSubCatTitle] = useState('');
 
-  const {categories,products,localizations,images} = usePage().props;
+
 
   console.log(products);
 
@@ -182,12 +183,12 @@ const Home = ({seo}) => {
                               :
                                   <button
                                       onClick={() => {
-                                          setProjectTab(item.index)
+                                          setProjectTab(item.id)
                                           getProducts(item.id)
                                       }}
                                       key={item.index}
                                       className={`lg:h-32 p-2 lg:w-1/5 bold text-sm sm:text-base xl:text-lg ${
-                                          projectTab === item.index
+                                          projectTab === item.id
                                               ? "bg-zinc-900 text-white"
                                               : "bg-zinc-100 "
                                       }`}
@@ -214,12 +215,12 @@ const Home = ({seo}) => {
                               return (
                                   <button
                                       onClick={() => {
-                                          setProjectTab(item.index)
+                                          setProjectTab(item.id)
                                           getProducts(item.id)
                                       }}
                                       key={item.index}
                                       className={`lg:h-32 p-2 lg:w-1/5 bold text-sm sm:text-base xl:text-lg ${
-                                          projectTab === item.index
+                                          projectTab === item.id
                                               ? "bg-zinc-900 text-white"
                                               : "bg-zinc-100 "
                                       }`}

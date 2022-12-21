@@ -241,7 +241,7 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$category) {
         <div class="col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div>
+                    {{--<div>
                         <h6 class="card-title mb-1">@lang('admin.filter_attributes')</h6>
                     </div>
                     <div class="mb-4">
@@ -258,9 +258,19 @@ $traverse = function ($categories, $prefix = '-') use (&$traverse,$category) {
                         </div>
                         @endforeach
 
+                    </div>--}}
+
+                    <div class="form-group">
+                        <label class="form-label">@lang('admin.position')</label>
+                        <input type="number" name="position" class="form-control" placeholder="@lang('admin.position')" value="{{$category->position ?? ''}}">
                     </div>
-
-
+                    @error('position')
+                    <small class="text-danger">
+                        <div class="error">
+                            {{$message}}
+                        </div>
+                    </small>
+                    @enderror
                 </div>
             </div>
         </div>
