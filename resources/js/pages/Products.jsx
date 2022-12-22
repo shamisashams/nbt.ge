@@ -11,6 +11,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 const Products = ({seo}) => {
     const {brands,category,product_category, categories,product_quantity, localizations, products} = usePage().props;
+    const [showCatDrop, setShowCatDrop] = useState(false)
 
     console.log(categories,product_category);
 
@@ -241,6 +242,30 @@ const Products = ({seo}) => {
                               </Link>
                           );
                       })}
+                      <div onClick={()=>setShowCatDrop(!showCatDrop)}>
+                          <div className={`relative cursor-pointer lg:block lg:w-full group hover:bg-zinc-100 mb-2 py-3 px-5 lg:-ml-5 text-left  transition-all ${
+                                     showCatDrop && "bg-zinc-100"
+                                  }`}
+                                 
+                              >
+                                  <div
+                                      className={`lg:block hidden absolute top-0 right-full w-full h-full bg-zinc-100 opacity-0 group-hover:opacity-100 transition-all text-right ${
+                                        showCatDrop && "!opacity-100"
+                                      }`}
+                                  >
+                                      <BiDownArrowAlt
+                                          className={"text-3xl -rotate-45 mt-1 -mr-5"}
+                                      />
+                                  </div>
+                                  Categoty Lot (6)
+                         </div>
+                         <div className={`block transition-all duration-300 overflow-hidden ${showCatDrop ? 'max-h-96' : 'max-h-0'}`}>
+                            <Link to='/' className="block mb-3"> catergory dr0p 1</Link>
+                            <Link to='/' className="block mb-3"> catergory dr0p 2</Link>
+                            <Link to='/' className="block mb-3"> catergory dr0p 3</Link>
+                         </div>
+                      </div>
+                  
                   </div>
                   <div className="grid 2xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:gap-10 gap-5">
                       {products.data.map((item, index) => {
@@ -306,7 +331,7 @@ const Products = ({seo}) => {
                                       }`}
                                   >
                                       <div
-                                          className={`block  absolute top-0 right-full w-full h-full bg-zinc-100 opacity-0 group-hover:opacity-100 transition-all text-right ${
+                                          className={`block absolute top-0 right-full w-full h-full bg-zinc-100 opacity-0 group-hover:opacity-100 transition-all text-right ${
                                               activeMaterial === item.id && "!opacity-100"
                                           }`}
                                       >
@@ -318,6 +343,29 @@ const Products = ({seo}) => {
                                   </Link>
                               );
                           })}
+                                   <div onClick={()=>setShowCatDrop(!showCatDrop)}>
+                          <div className={`relative cursor-pointer lg:block lg:w-full group hover:bg-zinc-100 mb-2 py-3 px-5 lg:-ml-5 text-left  transition-all ${
+                                     showCatDrop && "bg-zinc-100"
+                                  }`}
+                                 
+                              >
+                                  <div
+                                      className={`block absolute top-0 right-full w-full h-full bg-zinc-100 opacity-0 group-hover:opacity-100 transition-all text-right ${
+                                        showCatDrop && "!opacity-100"
+                                      }`}
+                                  >
+                                      <BiDownArrowAlt
+                                          className={"text-3xl -rotate-45 mt-1 -mr-5"}
+                                      />
+                                  </div>
+                                  Categoty Lot (6)
+                         </div>
+                         <div className={`block transition-all duration-300 overflow-hidden ${showCatDrop ? 'max-h-96' : 'max-h-0'}`}>
+                            <Link to='/' className="block mb-3"> catergory dr0p 1</Link>
+                            <Link to='/' className="block mb-3"> catergory dr0p 2</Link>
+                            <Link to='/' className="block mb-3"> catergory dr0p 3</Link>
+                         </div>
+                      </div>
                       </div>
                       <button
                           onClick={() => setFilter(false)}
