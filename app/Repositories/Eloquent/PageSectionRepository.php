@@ -96,4 +96,59 @@ class PageSectionRepository extends BaseRepository implements PageSectionReposit
         return $this->model;
     }
 
+
+    public function saveFile2(int $id, $base64,$height = 800, $width = 800): Model
+    {
+        //dd($request->file('image'));
+        $this->model = $this->findOrFail($id);
+        $reflection = new ReflectionClass(get_class($this->model));
+        $modelName = $reflection->getShortName();
+
+        //dd($this->model->files);
+        foreach ($this->model->files as $file){
+            Storage::delete('public/' . $file->getFileUrlAttribute());
+            Storage::delete('public/' . $modelName .'/' . $this->model->id . '/thumb/' . $file->title);
+            $file->delete();
+        }
+
+
+
+        $data = explode(',', $base64);
+// Decode the base64 data
+        $data = base64_decode($data[1]);
+
+
+
+        if ($base64) {
+            // Get Name Of model
+
+
+
+            $imagename = date('Ymdhis') .'crop.png';
+            $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id;
+
+            $image =  ImageResize::createFromString($data);
+            $image->resizeToHeight($height);
+
+            //$image->crop($width, $height, false, ImageResize::CROPCENTER);
+            //$image->save(date('Ymhs') . $file->getClientOriginalName());
+            $img = $image->getImageAsString();
+
+            $thumb = 'public/' . $modelName . '/' . $this->model->id .'/thumb/'.$imagename;
+
+            Storage::put('public/' . $modelName . '/' . $this->model->id . '/' . $imagename,$data);
+
+            Storage::put($thumb,$img);
+
+            $this->model->files()->create([
+                'title' => $imagename,
+                'path' => 'storage/' . $modelName . '/' . $this->model->id,
+                'format' => 'png',
+                'type' => File::FILE_DEFAULT,
+            ]);
+
+        }
+        return $this->model;
+    }
+
 }

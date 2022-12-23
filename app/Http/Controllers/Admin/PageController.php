@@ -115,6 +115,12 @@ class PageController extends Controller
         $this->pageSectionRepository->saveFile($page->id, $request);
 
 
+        if($request->post('base64_img')){
+            foreach ($request->post('base64_img') as $id => $data){
+                $this->pageSectionRepository->saveFile2($id, $data);
+            }
+        }
+
         /*if ($page->key == 'home'){
             foreach ($saveData['section'] as $id => $data){
                 $section = PageSection::find($id);
