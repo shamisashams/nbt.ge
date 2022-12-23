@@ -35,7 +35,7 @@
 {{--        <link href="{{ mix('/css/AppEng.css') }}" rel="stylesheet"/>--}}
 {{--    @endif--}}
     {{--    @dd($page["props"]["page"]["meta_title"])--}}
-    <link rel="icon" type="image/jpeg" href="{{asset('/assets/images/favicon.jpg')}}" />
+    <link rel="icon" type="image/ico" href="{{asset('/favicon.ico')}}" />
     <link href="https://tbcganvadeba.ge/assets/css/tbc-ganvadeba-button.css" rel="stylesheet" />
     @routes
     <!-- JQUERY JS -->

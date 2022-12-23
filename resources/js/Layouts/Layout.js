@@ -18,35 +18,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //import Preloader from "../components/Preloader/Preloader";
 import { Inertia } from "@inertiajs/inertia";
+import Preloader from "../components/Preloader";
 
 export default function Layout({ children, seo = null }) {
-    function detectQueryString() {
-        var currentQueryString = window.location.search;
-        //console.log('alllelele',currentQueryString);
-        if (currentQueryString) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    const [loading, setLoading] = useState(!detectQueryString());
-
-    /*useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, [3000]);
-    }, []);*/
-
-    addEventListener("popstate", (event) => {
-        // alert(234);
-    });
-    setTimeout(() => {
-        setLoading(false);
-    }, [500]);
-
-    Inertia.on("progress", (event) => {
-        console.log("axaxaxaxaxaxaxa", event.detail.progress.percentage);
-    });
+    const [loading, setLoading] = useState(true);
 
     Inertia.on("finish", () => {
         setTimeout(() => {
@@ -61,6 +36,24 @@ export default function Layout({ children, seo = null }) {
         setTimeout(() => {
             setLoading(false);
         }, [500]);
+    });
+
+    function detectQueryString() {
+        var currentQueryString = window.location.search;
+        //console.log('alllelele',currentQueryString);
+        if (currentQueryString) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    addEventListener("popstate", (event) => {
+        // alert(234);
+    });
+
+    Inertia.on("progress", (event) => {
+        console.log("axaxaxaxaxaxaxa", event.detail.progress.percentage);
     });
 
     if (seo) {
@@ -96,8 +89,6 @@ export default function Layout({ children, seo = null }) {
 
     return (
         <>
-            {/*<Router>*/}
-            {/*<Fragment>*/}
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -112,8 +103,8 @@ export default function Layout({ children, seo = null }) {
             <Navbar />
             {children}
             <Footer />
-            {/*</Fragment>*/}
-            {/*</Router>*/}
+
+            <Preloader loading={loading} />
         </>
     );
 }
