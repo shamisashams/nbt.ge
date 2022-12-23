@@ -45,7 +45,7 @@ class PageSectionRepository extends BaseRepository implements PageSectionReposit
                 $reflection = new ReflectionClass(get_class($model));
                 $modelName = $reflection->getShortName();
                 if ($model->file){
-                    Storage::delete($model->file->getFileUrlAttribute());
+                    Storage::delete('public/' . $modelName .'/' . $model->id . '/' . $model->file->title);
                     Storage::delete('public/' . $modelName .'/' . $model->id . '/thumb/' . $model->file->title);
                     $model->file->delete();
                 }
