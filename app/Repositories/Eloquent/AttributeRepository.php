@@ -45,9 +45,17 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
 
         if (in_array($attribute->type, ['select', 'multiselect', 'checkbox']) && count($options)) {
             foreach ($options as $optionInputs) {
-                $this->attributeOptionRepository->create(array_merge([
+                $option = $this->attributeOptionRepository->create(array_merge([
                     'attribute_id' => $attribute->id,
                 ], $optionInputs));
+
+                $file = isset($optionInputs['image']) ? $optionInputs['image'] : null;
+                unset($optionInputs['image']);
+                //dd($file);
+                if ($file){
+
+                    $this->attributeOptionRepository->saveImage($option->id,$file);
+                }
             }
         }
 

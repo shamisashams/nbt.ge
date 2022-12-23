@@ -151,6 +151,10 @@ class ProjectController extends Controller
             $product = $this->projectRepository->saveFiles($product->id, $request);
         }
 
+        if ($request->post('base64_img')) {
+
+            $product = $this->projectRepository->uploadCropped($request, $product->id);
+        }
 
         $product->products()->sync(isset($saveData['product'])?$saveData['product']:[]);
 
@@ -242,7 +246,10 @@ class ProjectController extends Controller
         $project->products()->sync(isset($saveData['product'])?$saveData['product']:[]);
 
 
+        if ($request->post('base64_img')) {
 
+            $project = $this->projectRepository->uploadCropped($request, $project->id);
+        }
 
 
 

@@ -478,6 +478,11 @@ class ProductController extends Controller
 
         $this->productRepository->saveVideo($request);
 
+        if ($request->post('base64_img')) {
+
+            $this->productRepository->uploadCropped($request, $product->id);
+        }
+
 
         $product->categories()->sync($saveData['categories'] ?? []);
 

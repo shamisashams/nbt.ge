@@ -86,6 +86,11 @@ class SliderController extends Controller
             $slider = $this->slideRepository->saveFiles($slider->id, $request);
         }
 
+        if ($request->post('base64_img')) {
+
+            $this->slideRepository->uploadCropped($request, $slider->id);
+        }
+
         return redirect(locale_route('slider.index', $slider->id))->with('success', __('admin.create_successfully'));
 
     }
@@ -148,6 +153,11 @@ class SliderController extends Controller
         $this->slideRepository->update($slider->id, $saveData);
 
         $this->slideRepository->saveFiles($slider->id, $request);
+
+        if ($request->post('base64_img')) {
+
+            $this->slideRepository->uploadCropped($request, $slider->id);
+        }
 
 
         return redirect(locale_route('slider.index', $slider->id))->with('success', __('admin.update_successfully'));

@@ -20,6 +20,8 @@
 
     <link rel="stylesheet" href="{{asset('uploader/image-uploader.css')}}">
 
+    <link rel="stylesheet" href="{{asset('admin/croppie/croppie.css')}}" />
+
 @endsection
 
 @section('content')
@@ -165,6 +167,26 @@
     </div>
 
     <!-- /row -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h6 class="card-title mb-1">@lang('admin.product_image_crop_upload')</h6>
+                    </div>
+                    <div>
+                        <p>Select a image file to crop</p>
+                        <input type="file" id="inputFile" accept="image/png, image/jpeg">
+                    </div>
+                    <div id="actions" style="display: none;">
+                        <button id="cropBtn" type="button">Crop {{--@if($product->created_at)& Upload @endif--}}</button>
+                    </div>
+                    <div id="croppieMount" class="p-relative"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- row -->
     <div class="row">
         <div class="col-lg-12 col-md-12">
@@ -184,7 +206,12 @@
 
                     <div class="image-uploader">
                         <div class="uploaded">
+                            <div id="img_list">
+                                @if(old('base64_img'))
+                                    <span class="img_itm"><input type="hidden" name="base64_img" value="{{old('base64_img')}}"><img height="200" src="{{old('base64_img')}}"><a class="delete_img" href="javascript:;">delete</a><span>
 
+                                @endif
+                            </div>
                             @foreach($slider->files as $item)
 
                                 <div class="uploaded-image">
@@ -293,6 +320,109 @@
             filebrowserUploadMethod: 'form'
         });
         @endforeach
+    </script>
+
+
+    <script src="{{asset('admin/croppie/croppie.js')}}"></script>
+    <script>
+
+
+        let croppie = null;
+        let croppieMount = document.getElementById('croppieMount');
+
+        let cropBtn = document.getElementById('cropBtn');
+
+        let inputFile = document.getElementById('inputFile');
+
+        let actions = document.getElementById('actions');
+
+        function cleanUpCroppie() {
+            croppieMount.innerHTML = '';
+            croppieMount.classList.remove('croppie-container');
+
+            croppie = null;
+        }
+
+        inputFile.addEventListener('change', () => {
+            cleanUpCroppie();
+
+            // Our input file
+            let file = inputFile.files[0];
+
+            let reader = new FileReader();
+            reader.onloadend = function(event) {
+                // Get the data url of the file
+                const data = event.target.result;
+
+                // ...
+            }
+
+            reader.readAsDataURL(file);
+
+            reader.onloadend = function(event) {
+                // Get the data ulr of the file
+                const data = event.target.result;
+                let width = screen.width;
+
+                croppie = new Croppie(croppieMount, {
+                    url: data,
+                    viewport: {
+                        width: width * 0.8,
+                        height: 500,
+
+                    },
+                    boundary: {
+                        width: width * 0.8,
+                        height: 700
+                    },
+                    mouseWheelZoom: false,
+                    enableResize: true,
+                });
+
+                // Binds the image to croppie
+                croppie.bind();
+
+                // Unhide the `actions` div element
+                actions.style.display = 'block';
+            }
+        })
+
+
+        cropBtn.addEventListener('click', () => {
+            // Get the cropped image result from croppie
+            croppie.result({
+                type: 'base64',
+                circle: false,
+                format: 'png',
+                size: 'original'
+            }).then((imageResult) => {
+                // Initialises a FormData object and appends the base64 image data to it
+                let formData = new FormData();
+                formData.append('base64_img', imageResult);
+                formData.append('_token', '{{csrf_token()}}');
+
+                //document.getElementById('inp_crop_img').value = imageResult;
+                // Sends a POST request to upload_cropped.php
+                {{--@if($product->created_at)
+                fetch('{{route('product.crop-upload',$product)}}', {
+                    method: 'POST',
+                    body: formData
+                }).then(() => {
+                    location.reload()
+                });
+                @else--}}
+                croppie.destroy();
+                $('#img_list').html('<span class="img_itm"><input type="hidden" name="base64_img" value="' + imageResult + '"><img height="200" src="' + imageResult + '"><a class="delete_img" href="javascript:;">delete</a><span>');
+                alert('cropped')
+                {{--@endif--}}
+            });
+        });
+
+
+
+        $(document).on('click','.delete_img',function (e){
+            $(this).parents('.img_itm').remove();
+        });
     </script>
 
 @endsection

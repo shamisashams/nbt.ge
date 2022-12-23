@@ -14,7 +14,9 @@ namespace App\Repositories\Eloquent;
 use App\Models\AttributeOption;
 use App\Repositories\Eloquent\Base\BaseRepository;
 use App\Repositories\AttributeOptionRepositoryInterface;
+use Gumlet\ImageResize;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
 /**
@@ -33,12 +35,22 @@ class AttributeOptionRepository extends BaseRepository implements AttributeOptio
 
     }
 
-    public function saveImage($id,$file){
+    public function saveImage($id,$file,$height = 200){
         $this->model = $this->findOrFail($id);
         $filename = uniqid();
         $path = $file->storePubliclyAs(
             'options/'.$id, $filename.'.'.$file->getClientOriginalExtension(),'public'
         );
+
+
+        $image = new ImageResize($file);
+        $image->resizeToHeight($height);
+        $img = $image->getImageAsString();
+
+        $thumb = 'public/options/' . $id .'/thumb/'.$filename.'.'.$file->getClientOriginalExtension();
+        Storage::put($thumb,$img);
+
+
         $this->model->update(['image' => $path]);
     }
 
