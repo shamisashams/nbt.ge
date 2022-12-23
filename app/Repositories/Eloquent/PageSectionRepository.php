@@ -106,7 +106,7 @@ class PageSectionRepository extends BaseRepository implements PageSectionReposit
 
         //dd($this->model->files);
         foreach ($this->model->files as $file){
-            Storage::delete('public/' . $file->getFileUrlAttribute());
+            Storage::delete('public/' . $modelName .'/' . $this->model->id . '/' . $file->title);
             Storage::delete('public/' . $modelName .'/' . $this->model->id . '/thumb/' . $file->title);
             $file->delete();
         }
