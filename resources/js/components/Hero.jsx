@@ -64,7 +64,7 @@ const Hero = () => {
   return (
     <div
       className="lg:h-screen py-40 w-full relative bg-center bg-cover text-white"
-      style={{ backgroundImage: `url(${sliders.length > 0 ? sliders[cIndex].file.full_url: null})` }}
+      style={{ backgroundImage: `url(${sliders.length > 0 ? (sliders[cIndex].file?sliders[cIndex].file.full_url:null): null})` }}
     >
       <div className="absolute left-0 top-0 w-full h-full bg-black/[0.7]"></div>
       <div className="wrapper h-full flex md:items-center items-end justify-between relative">
