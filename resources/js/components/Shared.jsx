@@ -60,7 +60,7 @@ export const ProjectBox = (props) => {
                   {props.categories.map((item,index)=>{
                       return (
                           <button key={index} className="py-2 px-8 border-2 border-black bold rounded-full mr-3 mb-2">
-                              {categories_object[item].title}
+                              {categories_object[item]?categories_object[item].title:null}
                           </button>
                       )
                   })}
