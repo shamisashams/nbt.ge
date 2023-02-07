@@ -85,6 +85,7 @@ class ProjectController extends Controller
                 if ($category->isRoot()) $_result = $category->id;
             }
             $_product['category'] = $_result;
+            if($_product['category'])
             $products[$_product['category']][] = $_product;
         }
 
