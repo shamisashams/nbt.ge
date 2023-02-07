@@ -64,6 +64,7 @@ class HandleInertiaRequests extends Middleware
         }
 
 
+        dd($categoriesObject);
         $info = [];
 
         $info = Setting::with(['translations'])->get();
