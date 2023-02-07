@@ -71,14 +71,14 @@ class CategoryController extends Controller
                 if($item->attribute->type == 'select'){
                     if($item->attribute->code == 'size'){
 
-                        $_result[$item->attribute->code] = $item->option->value;
+                        $_result[$item->attribute->code] = $item->option?$item->option->value:'';
                     }
                     elseif($item->attribute->code == 'color') {
-                        $_result[$item->attribute->code] = $item->option->label . ' ' . $item->option->color;
+                        $_result[$item->attribute->code] = $item->option?($item->option->label . ' ' . $item->option->color):'';
 
                     }
                     else {
-                        $_result[$item->attribute->code] = $item->option->label;
+                        $_result[$item->attribute->code] = $item->option?$item->option->label:'';
 
                     }
                 }
